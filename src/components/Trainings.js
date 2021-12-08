@@ -11,9 +11,9 @@ function Trainings() {
   // const [lastName, setLastName] = useState([])
 
   useEffect(() => {
-    fetch('https://customerrest.herokuapp.com/api/trainings')
+    fetch('https://customerrest.herokuapp.com/gettrainings')
       .then((response) => response.json())
-      .then((data) => setTrainings(data.content))
+      .then((data) => setTrainings(data))
       .catch((err) => console.error(err))
   }, [])
 
@@ -29,20 +29,27 @@ function Trainings() {
   //   return firstName + ' ' + lastName
   // }
 
-  const formatDate = function (date) {
-    return dayjs(date.value).format('DD/MM/YY')
-  }
-
   const columns = [
     { field: 'activity', sortable: true, filter: true },
     { field: 'duration', sortable: true, filter: true },
-    { field: 'date', sortable: true, filter: true, valueGetter: formatDate },
     {
-      headerName: 'Customer',
-      field: 'content.links[2].href',
+      field: 'date',
       sortable: true,
       filter: true,
-      //cellRendererFramework: (params) => getCustomer(params),
+      valueFormatter: (params) => dayjs(params.value).format('DD/MM/YY hh:mm'),
+    },
+    {
+      headerName: 'Customer first name',
+      field: 'customer.firstname',
+      sortable: true,
+      filter: true,
+    },
+
+    {
+      headerName: 'Customer last name',
+      field: 'customer.lastname',
+      sortable: true,
+      filter: true,
     },
   ]
 

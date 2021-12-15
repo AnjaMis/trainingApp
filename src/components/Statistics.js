@@ -1,8 +1,7 @@
-import React, { PureComponent, useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   BarChart,
   Bar,
-  Cell,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -25,19 +24,13 @@ function Statistics() {
       .catch((err) => console.error(err))
   }
 
-  const data = [
-    {
-      name: 'trainings.activity',
-      duration: 'trainings.duration',
-    },
-  ]
   return (
     <div>
-      <ResponsiveContainer width="100%" height="100%">
+      <ResponsiveContainer width="100%" aspect={3}>
         <BarChart
           width={500}
           height={300}
-          data={data}
+          data={trainings}
           margin={{
             top: 5,
             right: 30,
@@ -46,7 +39,7 @@ function Statistics() {
           }}
         >
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
+          <XAxis dataKey="activity" />
           <YAxis />
           <Tooltip />
           <Legend />
